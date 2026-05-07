@@ -1,32 +1,55 @@
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-
-export const metadata = {
-  title: 'Sobre | AI News Radar'
-};
-
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.14),_transparent_30rem),#020617]">
-      <Header />
-      <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 shadow-glow sm:p-10">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-200">Sobre</p>
-          <h1 className="text-4xl font-black tracking-tight text-white">AI News Radar</h1>
-          <div className="mt-6 space-y-5 text-lg leading-8 text-slate-300">
-            <p>
-              O AI News Radar é um MVP gratuito que agrega notícias públicas sobre Inteligência Artificial usando feeds RSS.
-            </p>
-            <p>
-              O site não copia artigos completos. Mostra apenas título, resumo curto, fonte, data, imagem quando disponível e um link para o artigo original.
-            </p>
-            <p>
-              As notícias são guardadas no Supabase, publicadas no frontend em Next.js e verificadas automaticamente por GitHub Actions. Quando surge uma URL nova, o projeto envia uma notificação para Telegram.
-            </p>
-          </div>
+    <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm animate-fade-up md:p-10">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-600">
+          Sobre o projeto
+        </p>
+
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+          Sobre o AI News Radar
+        </h1>
+
+        <div className="mt-6 space-y-4 text-base leading-7 text-slate-600">
+          <p>
+            O <strong>AI News Radar</strong> é um projeto gratuito criado para facilitar
+            o acesso às notícias mais recentes sobre Inteligência Artificial.
+          </p>
+
+          <p>
+            O site agrega notícias a partir de fontes públicas e gratuitas via RSS,
+            mostrando apenas informações essenciais como título, resumo curto, fonte,
+            data, imagem quando disponível e link para o artigo original.
+          </p>
+
+          <p>
+            Este projeto foi criado por <strong>@aiwith.oleg</strong> no Instagram,
+            com o objetivo de tornar a informação sobre AI mais acessível, simples
+            e centralizada.
+          </p>
+
+          <p>
+            O AI News Radar é gratuito e continua a evoluir com melhorias de design,
+            novas funcionalidades e conteúdos úteis para quem quer acompanhar o mundo
+            da Inteligência Artificial.
+          </p>
         </div>
-      </section>
-      <Footer />
+
+        <div className="mt-8 rounded-3xl bg-slate-50 p-6">
+          <p className="text-sm font-medium text-slate-900">
+            Segue o projeto:
+          </p>
+
+          <a
+            href="https://instagram.com/aiwith.oleg"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 inline-flex rounded-2xl bg-slate-900 px-5 py-3 text-sm font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-slate-800"
+          >
+            Ver @aiwith.oleg no Instagram
+          </a>
+        </div>
+      </div>
     </main>
   );
 }
