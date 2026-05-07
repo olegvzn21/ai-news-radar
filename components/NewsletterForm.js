@@ -88,7 +88,7 @@ export default function NewsletterForm() {
 
       <div className="mt-2">
         <p className="text-xs text-slate-500">
-          Ao submeteres, aceitas receber comunicações sobre o projeto, AI e futuras ofertas.
+          Ao submeteres, aceitas receber comunicações sobre o projeto, AI e futuras ofertas. Podes pedir a remoção a qualquer momento.
         </p>
 
         {status === 'success' && (
