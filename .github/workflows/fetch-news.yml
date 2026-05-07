@@ -9,6 +9,13 @@ jobs:
   fetch-news:
     runs-on: ubuntu-latest
 
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,20 +28,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check environment variables
+      - name: Check runtime env
         run: |
-          echo "SUPABASE_URL_EXISTS=${{ secrets.NEXT_PUBLIC_SUPABASE_URL != '' }}"
-          echo "SUPABASE_URL_STARTS_WITH_HTTPS=${{ startsWith(secrets.NEXT_PUBLIC_SUPABASE_URL, 'https://') }}"
-          echo "ANON_KEY_EXISTS=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY != '' }}"
-          echo "SERVICE_ROLE_EXISTS=${{ secrets.SUPABASE_SERVICE_ROLE_KEY != '' }}"
-          echo "TELEGRAM_TOKEN_EXISTS=${{ secrets.TELEGRAM_BOT_TOKEN != '' }}"
-          echo "TELEGRAM_CHAT_ID_EXISTS=${{ secrets.TELEGRAM_CHAT_ID != '' }}"
+          node -e "console.log({
+            urlExists: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL),
+            urlStartsWithHttps: process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith('https://'),
+            anonExists: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+            serviceRoleExists: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
+            telegramTokenExists: Boolean(process.env.TELEGRAM_BOT_TOKEN),
+            telegramChatIdExists: Boolean(process.env.TELEGRAM_CHAT_ID)
+          })"
 
       - name: Fetch news
         run: node scripts/fetch-news.js
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
