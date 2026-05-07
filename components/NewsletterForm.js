@@ -19,7 +19,7 @@ export default function NewsletterForm() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, website: '' })
       });
 
       const data = await response.json();
@@ -58,6 +58,15 @@ export default function NewsletterForm() {
           onSubmit={handleSubmit}
           className="flex w-full flex-col gap-2 sm:flex-row md:max-w-lg"
         >
+          <input
+            type="text"
+            name="website"
+            tabIndex="-1"
+            autoComplete="off"
+            className="hidden"
+            aria-hidden="true"
+          />
+
           <input
             type="email"
             required

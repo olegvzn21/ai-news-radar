@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 function isValidEmail(email) {
+  if (!email) return false;
+  if (email.length > 254) return false;
+
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
@@ -24,7 +27,17 @@ function getSupabaseAdminClient() {
 export async function POST(request) {
   try {
     const body = await request.json();
+
     const email = body?.email?.trim().toLowerCase();
+    const website = body?.website?.trim();
+
+    // Honeypot: bots costumam preencher campos escondidos
+    if (website) {
+      return NextResponse.json({
+        success: true,
+        message: 'Obrigado! Entraste na lista.'
+      });
+    }
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json(
@@ -54,13 +67,13 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Obrigado! Entraste na lista com sucesso.'
+      message: 'Obrigado! Entraste na lista.'
     });
   } catch (error) {
     console.error('Erro ao guardar subscriber:', error);
 
     return NextResponse.json(
-      { error: 'Não foi possível guardar o email.' },
+      { error: 'Não foi possível guardar o email neste momento.' },
       { status: 500 }
     );
   }
