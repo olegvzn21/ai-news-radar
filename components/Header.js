@@ -5,11 +5,11 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
-          <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 shadow-lg transition duration-300 hover:scale-105">
-            <span className="absolute h-7 w-7 rounded-full border border-cyan-300/70" />
-            <span className="absolute h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.9)]" />
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-white/80" />
-          </div>
+          <img
+            src="/logo.png"
+            alt="AI News Radar logo"
+            className="h-11 w-11 rounded-full object-cover shadow-lg transition duration-300 hover:scale-105"
+          />
 
           <div>
             <p className="text-lg font-extrabold tracking-tight text-slate-900">
