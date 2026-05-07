@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -23,21 +24,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
-
-      - name: Check runtime env
-        run: |
-          node -e "console.log({
-            urlExists: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL),
-            urlStartsWithHttps: process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith('https://'),
-            anonExists: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
-            serviceRoleExists: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
-            telegramTokenExists: Boolean(process.env.TELEGRAM_BOT_TOKEN),
-            telegramChatIdExists: Boolean(process.env.TELEGRAM_CHAT_ID)
-          })"
 
       - name: Fetch news
         run: node scripts/fetch-news.js
